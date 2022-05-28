@@ -2,7 +2,7 @@
 [![Discord](https://media.discordapp.net/attachments/338403017894395905/668536741942263808/Discord-Logo-Color.png)](https://discord.gg/5qwZWp6Y)
 The best command line script for roblox.
 
-Get it [here](https://github.com/Trollmaster847/Infinity-Hub)
+Get it [here](https://github.com/Trollmaster847/InfinityHub)
 
 Disclaimer: This hub is only good for a game called The Rake: Noob Edition, but more scripts for other games will be added soon
 
