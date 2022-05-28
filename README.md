@@ -4,16 +4,6 @@ The best command line script for roblox.
 
 Get it [here](https://github.com/Trollmaster847/Infinity-Hub)
 
- - Infinite Stamina
- - Auto FlareGun TP
- - TP to FlareGun
- - Disable Hour Effects
- - FallDamage Disabler
-
- - Change Color UI
- - Rainbow Color UI eEfect
- - Music System (You only can hear the msuic)
-
 Disclaimer: This hub is only good for a game called The Rake: Noob Edition, but more scripts for other games will be added soon
 
 ## Loadstring
@@ -27,7 +17,6 @@ Infinity Hub is compatible with the following:
 * Scriptware
 * Sentinel 
 * Krnl
-* Fluxus
 
 ## Developers
 ### Creator: xii01_Alxn / ! - Alxn#5429
