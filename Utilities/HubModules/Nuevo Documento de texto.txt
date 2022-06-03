@@ -299,7 +299,7 @@ function Infinity:CreateWindow(Hub_Name, MainColor)
 	local Debounce = false
 
 	function Infinity:ToggleUI()
-		if FrameTonggled == false and Debounce == false then
+		--[[if FrameTonggled == false and Debounce == false then
 			Main:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 
 			FrameTonggled = true
@@ -318,6 +318,12 @@ function Infinity:CreateWindow(Hub_Name, MainColor)
 			Main:TweenSize(UDim2.new(0, 500, 0, 370), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 			FrameTonggled = false
 			UI.Enabled = true
+		end]]--
+		
+		if FrameTonggled then
+		UI.Enabled = false
+		else
+		UI.Enabled = true
 		end
 	end
 	
@@ -330,7 +336,7 @@ function Infinity:CreateWindow(Hub_Name, MainColor)
 	end
 
 	function Infinity:DestroyUI()
-		PARENT:Destroy()
+		UI:Destroy()
 	end
 	
 	local Tabs = {}
