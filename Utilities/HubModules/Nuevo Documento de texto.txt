@@ -7,8 +7,6 @@ local RS = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local CoreGui = game:GetService("CoreGui")
 
-local Infinity = {}
-
 _G.InfinityHub_Data = {
 	UIRaimbowEffect = false,
 
@@ -170,7 +168,9 @@ if not RS:IsStudio() then
 	end
 end
 
-function Infinity.CreateWindow(Hub_Name, MainColor)
+local Infinity = {}
+
+function Infinity:CreateWindow(Hub_Name, MainColor)
 	
 	local UI = Instance.new("ScreenGui")
 	
@@ -1708,13 +1708,11 @@ function Infinity.CreateWindow(Hub_Name, MainColor)
 
 				UpdateSize()
 				UpdateSectionFrame()
-			end
-			
+			end		
 			return Elements
 		end	
 		return Sections
 	end
 	return Tabs
 end
-
 return Infinity
