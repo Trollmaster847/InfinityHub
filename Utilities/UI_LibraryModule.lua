@@ -59,7 +59,7 @@ function randomString()
 end
 
 if HUB_LOADED and not _G.HUB_DEBUG == true then
-	warn("Hub is already running!")
+	warn("Infinity Hub is already running!")
 	return
 end
 
@@ -68,7 +68,7 @@ pcall(function() getgenv().HUB_LOADED = true end)
 if not game:IsLoaded() then
 
 	NotLoaded = Instance.new("Message")
-	NotLoaded.Text = "Hub is waiting for the game to load"
+	NotLoaded.Text = "Infinity Hub is waiting for the game to load"
 
 	local s, e = pcall(function()
 		NotLoaded.Parent = game:GetService("CoreGui")
