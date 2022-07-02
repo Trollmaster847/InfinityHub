@@ -10,7 +10,7 @@
         "InfinityHub_API": "Online",
         "InfinityHub_Launcher": "Online"
     },
-    "LatestVersion": "",
+    "LatestVersion": "https://raw.githubusercontent.com/Trollmaster847/InfinityHub/main/Utilities/UI_Library.lua",
     "Themes": {
         "Default": {
             "ThemeIndex": 1,
