@@ -1,4 +1,4 @@
-local launcherData = game:GetService("HttpService"):JSONDecode((game:HttpGet("https://raw.githubusercontent.com/Trollmaster847/InfinityHub/main/Utilities/Hub_MetaData.json")));
+local launcherData = game:GetService("HttpService"):JSONDecode((game:HttpGet("https://raw.githubusercontent.com/Trollmaster847/InfinityHub/main/Utilities/Modules/Hub_MetaData.json")));
 
 local statusData = launcherData["StatusData"];
 local latestVersion = launcherData["LatestVersion"];
