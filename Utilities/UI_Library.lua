@@ -1,3 +1,28 @@
+if HUB_LOADED and not _G.HUB_DEBUG == true then
+	warn("Infinity Hub is already running!")
+	return
+end
+
+pcall(function() getgenv().HUB_LOADED = true end)
+
+if not game:IsLoaded() then
+
+	NotLoaded = Instance.new("Message")
+	NotLoaded.Text = "Infinity Hub is waiting for the game to load"
+
+	local s, e = pcall(function()
+		NotLoaded.Parent = game:GetService("CoreGui")
+	end)
+
+	if not s then
+		NotLoaded.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+	end
+
+	game.Loaded:Wait()
+
+	NotLoaded:Destroy()
+end
+
 local TweenService = game:GetService("TweenService")
 local MPS = game:GetService("MarketplaceService")
 
@@ -16,24 +41,58 @@ _G.InfinityHub_Data = {
 
 	PlayerTracerESP = false,
 	PlayerBoxESP = false,
-
-	ShowNotifications = true,
-	TeamCheck = false,
-
+	
 	PresetColor = Color3.fromRGB(0, 255, 0),
 	CloseBind = Enum.KeyCode.LeftControl,
-	Position = nil,
+	Position = {0.5, 0, 0.5, 0},
+	ShowNotifications = true,
 }
 
-_G.InfinityHub_Data_ExperimentalUsers = {
-	["xii01_Alxn"] = 2737327936,
-	["D4RK_M4N3"] = 2796084622,
-}
+function RestoreUI()
+
+	if _G.InfinityHub_Data.PlayerESP then
+		_G.InfinityHub_Data.PlayerESP = false
+		
+		for i, v in pairs(CoreGui:GetChildren()) do
+			if string.sub(v.Name, -4) == '_ESP' then
+				v:Destroy()
+			end
+		end
+	end
+	
+	if _G.InfinityHub_Data.PlayerChams then
+		_G.InfinityHub_Data.PlayerChams = false
+
+		for i,v in pairs(game.Players:GetChildren()) do
+			for i, c in pairs(CoreGui:GetChildren()) do
+				if c.Name == v.Name..'_CHMS' then
+					c:Destroy()
+				end
+			end
+		end
+	end
+	
+	if _G.InfinityHub_Data.PlayerTracerESP then
+		_G.InfinityHub_Data.PlayerTracerESP = false
+	end
+	if _G.InfinityHub_Data.PlayerBoxESP then
+		_G.InfinityHub_Data.PlayerBoxESP = false
+	end
+	
+	if _G.InfinityHub_Data.UIRaimbowEffect then
+		_G.InfinityHub_Data.UIRaimbowEffect = false
+	end
+	if _G.InfinityHub_Data.ShowNotifications then
+		_G.InfinityHub_Data.ShowNotifications = false
+	end
+end
 
 local HubColorValue = {RainbowColorValue = 0, HueSelectionPosition = 0}
 
 local HueSelectionPosition
 local RainbowColorValue
+
+local SelectedTab = nil
 local PARENT = nil
 
 coroutine.wrap(
@@ -64,31 +123,6 @@ function randomString()
 	end
 
 	return table.concat(array)
-end
-
-if HUB_LOADED and not _G.HUB_DEBUG == true then
-	warn("Infinity Hub is already running!")
-	return
-end
-
-pcall(function() getgenv().HUB_LOADED = true end)
-
-if not game:IsLoaded() then
-
-	NotLoaded = Instance.new("Message")
-	NotLoaded.Text = "Infinity Hub is waiting for the game to load"
-
-	local s, e = pcall(function()
-		NotLoaded.Parent = game:GetService("CoreGui")
-	end)
-
-	if not s then
-		NotLoaded.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-	end
-
-	game.Loaded:Wait()
-
-	NotLoaded:Destroy()
 end
 
 function MakeDraggable(MainFrame)
@@ -228,7 +262,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	MainFrame.Parent = UI
 	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 	MainFrame.BackgroundTransparency = 1.000
-	MainFrame.Position = UDim2.new(0.5, 0, 0.555871189, 0)
+	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	MainFrame.Size = UDim2.new(0, 0, 0, 0)
 	MainFrame.Image = "rbxassetid://4641149554"
 	MainFrame.ImageColor3 = Color3.fromRGB(24, 24, 24)
@@ -349,10 +383,17 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	local uitoggled = false
 	UserInputService.InputBegan:Connect(
 		function(io, p)
-			if io.KeyCode == CloseBind then
+			if io.KeyCode == _G.InfinityHub_Data.CloseBind then
 				if uitoggled == false then
 					MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 					Tabs.Visible = false
+					
+					for i, v in pairs(TabsFolder:GetChildren()) do
+						if v:IsA("ScrollingFrame") then
+							v.Visible = false
+						end
+					end
+					
 					uitoggled = true
 					wait(.5)
 					UI.Enabled = false
@@ -360,7 +401,26 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 					MainFrame:TweenSize(UDim2.new(0, 500, 0, 370), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 					Tabs.Visible = true
 					
+					for i, v in pairs(TabsFolder:GetChildren()) do
+						if v:IsA("ScrollingFrame") then
+							if SelectedTab ~= nil then
+								if v.Name == tostring(SelectedTab) then
+									v.Visible = true
+								else
+									if v.Name == "HomeFrame" then 
+										v.Visible = true
+									end
+								end
+							else
+								if v.Name == "HomeFrame" then 
+									v.Visible = true
+								end
+							end
+						end
+					end
+					
 					UI.Enabled = true
+					wait(.5)
 					uitoggled = false
 				end
 			end
@@ -372,12 +432,15 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	end
 
 	function library:SaveUISettings()
-		pcall(function() Save_UI_Settings() end)
+		--pcall(function() _G.InfinityHub_Data.Position = MainFrame.Position end)
+		--pcall(function() Save_UI_Settings() end)
 	end
 
 	function library:DestroyUI()
+		--pcall(function() _G.InfinityHub_Data.Position = MainFrame.Position end)
 		pcall(function() getgenv().HUB_LOADED = false end)
-		pcall(function() Save_UI_Settings() end)
+		--pcall(function() Save_UI_Settings() end)
+		pcall(function() RestoreUI() end)
 		PARENT:Destroy()
 	end
 	
@@ -725,7 +788,8 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 					TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 					{ImageTransparency = 0}
 				):Play()
-
+				
+				SelectedTab = TabFrame
 				TabFrame.Visible = true
 
 				wait(2)
@@ -1638,7 +1702,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 				UpdateSectionFrame()
 			end
 
-			function Elements:CreateTonggle(ActionText, callback)
+			function Elements:CreateToggle(ActionText, callback)
 
 				local Tonggle = Instance.new("TextButton")
 				local Title = Instance.new("TextLabel")
@@ -1708,9 +1772,9 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 					pcall(callback, Tonggled)
 
 					if Tonggled then
-						Title.Text = "Enabled "..ActionText
+						Title.Text = ActionText
 					else
-						Title.Text = "Disabled "..ActionText
+						Title.Text = ActionText
 					end
 				end
 
@@ -1724,9 +1788,9 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 					if newText ~= nil then 
 						if Tonggled then
-							Title.Text = "Enabled "..newText
+							Title.Text = newText
 						else
-							Title.Text = "Disabled "..newText
+							Title.Text = newText
 						end
 					end
 
@@ -1801,7 +1865,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 				TextBox.Size = UDim2.new(0, 20, 0, 16)
 				TextBox.ZIndex = 3
 				TextBox.Font = Enum.Font.GothamSemibold
-				TextBox.Text = "0"
+				TextBox.Text = tostring(MinValue)
 				TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 				TextBox.TextSize = 12.000
 				TextBox.TextXAlignment = Enum.TextXAlignment.Right
@@ -1930,7 +1994,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 				Title.Text = ActionText
 				Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 				Title.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-				Title.TextSize = 15.000
+				Title.TextSize = 12
 				Title.ZIndex = 3
 				Title.TextTransparency = 0.1
 				Title.TextXAlignment = Enum.TextXAlignment.Left
