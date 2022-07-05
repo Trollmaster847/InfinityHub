@@ -17,5 +17,5 @@ if statusData["InfinityHub_API"] == "Offline" or statusData["InfinityHub"] == "O
 end
 
 warn("Hub Initialized")
-print("---------------------------")
+print("--------------")
 loadstring(game:HttpGet(latestVersion))();
