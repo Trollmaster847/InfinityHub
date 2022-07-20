@@ -14,27 +14,19 @@
 
 ## All Scripts:
  
-- #### [🏠] **[Custom Home Icon].**
+- #### [👻] **[The Rake: Noob Edition].**
 
-- #### [📟] **[Custom Text Font].**
+- #### [🌊] **[Natural Disaster Survival].**
 
-- #### [📚] **[Channels & Categories Color].**
+- #### [😈] **[Tower of Hell].**
 
-- #### [🔎] **[Minified Search Bar].**
+- #### [🚪] **[Apeirophobia].**
 
-- #### [🖼️] **[Custom Background Image].**
+- #### [💣] **[Super Bomb Survival].**
 
-- #### [📑] **[Unclamp the About Me section].**
+- #### [🐱] **[Raise a Floppa].**
 
-- #### [🫓] **[Rounded Context Menu].**
-
-- #### [:page_with_curl:] **[Compact Channels & Categories].**
-
-- #### [:mega:] **[Discord Custom Title](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_title.css "Discord Custom Title").**
-
-- #### [🅰️] **[Channel Names Capitalized](https://github.com/LawOff/10CustomCSS/blob/main/scripts/channels_name_capitalized.css "Channel Names Capitalized").**
-
-- #### [🏷️] **[Colorful Role Tags](https://github.com/LawOff/10CustomCSS/blob/main/scripts/colorful_role_tags.css "Colorful Role Tags").**
+- More games coming Soon..
 
 
 ## Credits:
