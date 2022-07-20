@@ -28,10 +28,23 @@
 
 - More games coming Soon..
 
+## Loadstring
+The current loadstring is:
+
+```lua
+temporally disabled
+```
+## Compatibility
+Infinity Hub is compatible with the following:
+* Synapse X
+* Script-ware
+* Sentinel 
+* Krnl
+
 
 ## Credits:
 
 Scripts found here:
-[Kiyoshi-23](https://github.com/Kiyoshi-23/BD-Custom-CSS "Kiyoshi-23") - 
-[Vendetta-Does-Stuff](https://github.com/Vendetta-Does-Stuff/Custom-BetterDiscord-CSS "Vendetta-Does-Stuff") - 
-[LuckFire](https://github.com/Discord-Theme-Addons/snippets "Vendetta-Does-Stuff") -
+[0nlyyAlxn] - 
+[FG icey] - 
+[01k_iiSxfi] -
