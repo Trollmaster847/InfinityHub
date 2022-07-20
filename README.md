@@ -1,39 +1,45 @@
 # Infinity-Hub
-[![Discord](https://media.discordapp.net/attachments/338403017894395905/668536741942263808/Discord-Logo-Color.png)](https://discord.gg/5qwZWp6Y)
+---
 
-Get it [here](https://github.com/Trollmaster847/InfinityHub)
+<h3 align="center">Multiple Scripts for Roblox</h3>
 
-Disclaimer: This hub is only good for a game called The Rake: Noob Edition, but more scripts for other games will be added soon
+<p align="center">
+  <a href="https://discord.gg/eWXxNYZd5p" alt="Tips, Discussion & Support Server">
+    <img src="https://img.shields.io/discord/836621542917275668?color=7289DA&labelColor=4a64bd&logo=discord&logoColor=white&style=for-the-badge"/></a>
+  </p>
+</p>
+<p align="center"> Best Roblox Hub </p>
 
-## Loadstring
-The current loadstring is:
-```lua
-temporally disabled
-```
-## Compatibility
-Infinity Hub is compatible with the following:
-* Synapse X
-* Scriptware
-* Sentinel 
-* Krnl
+---
 
-## Developers
-### Creator: xii01_Alxn / ! - Alxn#5429
+## All Scripts:
+ 
+- #### [🏠] **[Custom Home Icon](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_home_icon.css "Custom Home Icon").**
 
-### Developer: 02_Vale7u7 / •♡𝒱𝓍𝓁𝑒𝓃♡•#7353
+- #### [📟] **[Custom Text Font](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_discord_font.css "Custom Text Font").**
 
-## Usage
-You can learn how to use all the features of this script in the wiki!
+- #### [📚] **[Channels & Categories Color](https://github.com/LawOff/10CustomCSS/blob/main/scripts/channels_categories_color.css "Channels & Categories Color").**
 
-## Contributing
-There is no specific rules on contributing (as of now) just open a pull request and if it checks out we will merge it!
+- #### [🔎] **[Minified Search Bar](https://github.com/LawOff/10CustomCSS/blob/main/scripts/mini_search_bar.css "Minified Search Bar").**
 
-### Contact me:
+- #### [🖼️] **[Custom Background Image](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_background.css "Custom Background Image").**
 
-[<img align="left" alt="subuthai.xyz" width="22px" src="https://img.icons8.com/fluency/48/000000/globe.png" />][website]
-[<img align="left" alt="subuthai_ | Instagram" width="22px" src="https://img.icons8.com/fluency/48/000000/instagram-new.png" />][instagram]
-[<img align="left" alt="subuthai_ | Discord" width="22px" src="https://img.icons8.com/fluency/48/000000/discord.png" />][discord]
+- #### [📑] **[Unclamp the About Me section](https://github.com/LawOff/10CustomCSS/blob/main/scripts/unclamp_about_me.css "Unclamp the About Me section").**
 
-[website]: https://subuthai.xyz
-[instagram]: https://instagram.com/0nlyy._alxn
-[discord]: https://discord.gg/eWXxNYZd5p
+- #### [🫓] **[Rounded Context Menu](https://github.com/LawOff/10CustomCSS/blob/main/scripts/rounded_menu.css "Rounded Context Menu").**
+
+- #### [:page_with_curl:] **[Compact Channels & Categories](https://github.com/LawOff/10CustomCSS/blob/main/scripts/channels_categories_compact.css "Compact Channels & Categories").**
+
+- #### [:mega:] **[Discord Custom Title](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_title.css "Discord Custom Title").**
+
+- #### [🅰️] **[Channel Names Capitalized](https://github.com/LawOff/10CustomCSS/blob/main/scripts/channels_name_capitalized.css "Channel Names Capitalized").**
+
+- #### [🏷️] **[Colorful Role Tags](https://github.com/LawOff/10CustomCSS/blob/main/scripts/colorful_role_tags.css "Colorful Role Tags").**
+
+
+## Credits:
+
+Scripts found here:
+[Kiyoshi-23](https://github.com/Kiyoshi-23/BD-Custom-CSS "Kiyoshi-23") - 
+[Vendetta-Does-Stuff](https://github.com/Vendetta-Does-Stuff/Custom-BetterDiscord-CSS "Vendetta-Does-Stuff") - 
+[LuckFire](https://github.com/Discord-Theme-Addons/snippets "Vendetta-Does-Stuff") -
