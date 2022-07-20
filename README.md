@@ -14,21 +14,21 @@
 
 ## All Scripts:
  
-- #### [🏠] **[Custom Home Icon](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_home_icon.css "Custom Home Icon").**
+- #### [🏠] **[Custom Home Icon].**
 
-- #### [📟] **[Custom Text Font](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_discord_font.css "Custom Text Font").**
+- #### [📟] **[Custom Text Font].**
 
-- #### [📚] **[Channels & Categories Color](https://github.com/LawOff/10CustomCSS/blob/main/scripts/channels_categories_color.css "Channels & Categories Color").**
+- #### [📚] **[Channels & Categories Color].**
 
-- #### [🔎] **[Minified Search Bar](https://github.com/LawOff/10CustomCSS/blob/main/scripts/mini_search_bar.css "Minified Search Bar").**
+- #### [🔎] **[Minified Search Bar].**
 
-- #### [🖼️] **[Custom Background Image](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_background.css "Custom Background Image").**
+- #### [🖼️] **[Custom Background Image].**
 
-- #### [📑] **[Unclamp the About Me section](https://github.com/LawOff/10CustomCSS/blob/main/scripts/unclamp_about_me.css "Unclamp the About Me section").**
+- #### [📑] **[Unclamp the About Me section].**
 
-- #### [🫓] **[Rounded Context Menu](https://github.com/LawOff/10CustomCSS/blob/main/scripts/rounded_menu.css "Rounded Context Menu").**
+- #### [🫓] **[Rounded Context Menu].**
 
-- #### [:page_with_curl:] **[Compact Channels & Categories](https://github.com/LawOff/10CustomCSS/blob/main/scripts/channels_categories_compact.css "Compact Channels & Categories").**
+- #### [:page_with_curl:] **[Compact Channels & Categories].**
 
 - #### [:mega:] **[Discord Custom Title](https://github.com/LawOff/10CustomCSS/blob/main/scripts/custom_title.css "Discord Custom Title").**
 
