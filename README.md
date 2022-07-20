@@ -41,10 +41,8 @@ Infinity Hub is compatible with the following:
 * Sentinel 
 * Krnl
 
+## Developers
+### Creator: xii01_Alxn / ! - Alxn#5429
 
-## Credits:
-
-Scripts found here:
-[0nlyyAlxn] - 
-[FG icey] - 
-[01k_iiSxfi] -
+### Developer: 02_Vale7u7 / •Vxlenn•💋✨#3628
+### Developer: FG Icey / iceyW#7089
