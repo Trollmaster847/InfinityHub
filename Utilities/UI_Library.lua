@@ -1048,25 +1048,30 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 				StatusCircleCorner.CornerRadius = UDim.new(0, 100)
 				StatusCircleCorner.Name = "StatusCircleCorner"
 				StatusCircleCorner.Parent = StatusCircle
-
+				
+				local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
+				
 				GameInfoBtn.MouseButton1Click:Connect(function()
 					if Status == "Ok" then
 						library:Notify("NOTIFICATION", "You will be teleported to: "..tostring(info.Name).."\nAre you sure of this?", "fuction", function(arg)
-							if arg then
+							if arg and queueteleport then
+								queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Trollmaster847/InfinityHub/main/UI.lua'))()")
 								game:GetService("TeleportService"):Teleport(PlaceId)
 							end
 						end)
 
 					elseif Status == "Warning" then
 						library:Notify("NOTIFICATION", "Be careful, you will be teleported to a game that has just been updated\nAre you sure of this?", "fuction", function(arg)
-							if arg then
+							if arg and queueteleport then
+								queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Trollmaster847/InfinityHub/main/UI.lua'))()")
 								game:GetService("TeleportService"):Teleport(PlaceId)
 							end
 						end)
 
 					elseif Status == "Broken" then
 						library:Notify("NOTIFICATION", "Warning this game is recently updated the Scripts are Broken/Patched\nAre you sure of this?", "fuction", function(arg)
-							if arg then
+							if arg and queueteleport then
+								queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Trollmaster847/InfinityHub/main/UI.lua'))()")
 								game:GetService("TeleportService"):Teleport(PlaceId)
 							end
 						end)
