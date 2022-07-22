@@ -42,6 +42,16 @@ function CheckTools(plr)
 	end
 end
 
+function toClipboard(String)
+	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+	if clipBoard then
+		clipBoard(String)
+		notify('Clipboard','Copied to clipboard')
+	else
+		notify('Clipboard',"Your exploit doesn't have the ability to use the clipboard")
+	end
+end
+
 
 function randomString()
 	local length = math.random(10,20)
@@ -582,8 +592,8 @@ HomeSection:CreateButton("Player: "..Player.DisplayName.." | @"..Player.Name)
 local FPSBtn = HomeSection:CreateButton("FPS: "..FPS)
 
 HomeSection:CreateButton("JobId: "..game.JobId, function()
-	if setclipboard then
-		setclipboard(game.JobId)
+	if toClipboard then
+		toClipboard(game.JobId)
 		library:CoreNotification('Discord Invite', 'Copied to clipboard!\n'..game.JobId)
 	else
 		library:CoreNotification('Discord Invite', 'Can not copy JobId!\n'..game.JobId)
@@ -593,8 +603,8 @@ end)
 HomeSection:CreateButton("Copy Discord Server Invitation", function(args)
 	--Main:Notify(tostring(info.Name),"Copied Discord Invitation!","Normal")
 
-	if setclipboard then
-		setclipboard('https://discord.com/invite/eWXxNYZd5p')
+	if toClipboard then
+		toClipboard('https://discord.com/invite/eWXxNYZd5p')
 		library:CoreNotification('Discord Invite', 'Copied to clipboard!\ndiscord.gg/eWXxNYZd5p')
 	else
 		library:CoreNotification('Discord Invite', 'discord.gg/eWXxNYZd5p')
@@ -1928,8 +1938,8 @@ local Credits = Window:CreatePage("Credits", 6883783410, 7)
 local CreditsSection = Credits:CreateSection("Lead Developer")
 
 CreditsSection:CreateButton("0nlyyAlxn - Lead Developer              (Alxn<3#5429)", function()
-	if setclipboard then
-		setclipboard('Alxn<3#5429')
+	if toClipboard then
+		toClipboard('Alxn<3#5429')
 		library:CoreNotification('Discord DevTag', 'Copied to clipboard!\nAlxn<3#5429')
 	else
 		library:CoreNotification('Discord DevTag', 'Alxn<3#5429')
@@ -1939,8 +1949,8 @@ end)
 local CreditsSection2 = Credits:CreateSection("Develpoers")
 
 CreditsSection2:CreateButton("02_Vale7u7 - Scripter              (•Vxlenn•💋✨#3628)", function()
-	if setclipboard then
-		setclipboard('•Vxlenn•💋✨#3628')
+	if toClipboard then
+		toClipboard('•Vxlenn•💋✨#3628')
 		library:CoreNotification('Discord DevTag', 'Copied to clipboard!\n•Vxlenn•💋✨#3628')
 	else
 		library:CoreNotification('Discord DevTag', '•Vxlenn•💋✨#3628')
@@ -1948,9 +1958,8 @@ CreditsSection2:CreateButton("02_Vale7u7 - Scripter              (•Vxlenn•�
 end)
 
 CreditsSection2:CreateButton("FG Icey - Scripter              (iceyW#7089)", function()
-
-	if setclipboard then
-		setclipboard('iceyW#7089')
+	if toClipboard then
+		toClipboard('iceyW#7089')
 		library:CoreNotification('Discord DevTag', 'Copied to clipboard!\niceyW#7089')
 	else
 		library:CoreNotification('Discord DevTag', 'iceyW#7089')
@@ -1958,9 +1967,8 @@ CreditsSection2:CreateButton("FG Icey - Scripter              (iceyW#7089)", fun
 end)
 
 CreditsSection2:CreateButton("JeyLex - BETA TESTER              (JayLex💢#6989)", function()
-
-	if setclipboard then
-		setclipboard('JayLex💢#6989')
+	if toClipboard then
+		toClipboard('JayLex💢#6989')
 		library:CoreNotification('Discord DevTag', 'Copied to clipboard!\nJayLex💢#6989')
 	else
 		library:CoreNotification('Discord DevTag', 'iceyW#7089')
@@ -1975,8 +1983,8 @@ CreditsSection3:CreateButton("Venyx - UI inspiration")
 local CreditsSection4 = Credits:CreateSection("Discord Servers")
 
 CreditsSection4:CreateButton("Offcial Server1: Aure Ware", function()
-	if setclipboard then
-		setclipboard('https://discord.com/invite/24kYCDh6wd')
+	if toClipboard then
+		toClipboard('https://discord.com/invite/24kYCDh6wd')
 		library:CoreNotification('Discord Invite', 'Copied to clipboard!\ndiscord.gg/24kYCDh6wd')
 	else
 		library:CoreNotification('Discord Invite', 'discord.gg/24kYCDh6wd')
@@ -2002,8 +2010,8 @@ CreditsSection4:CreateButton("Offcial Server1: Aure Ware", function()
 end)
 
 CreditsSection4:CreateButton("Offcial Server2: The Lofi Room 11:11", function()
-	if setclipboard then
-		setclipboard('https://discord.com/invite/eWXxNYZd5p')
+	if toClipboard then
+		toClipboard('https://discord.com/invite/eWXxNYZd5p')
 		library:CoreNotification('Discord Invite', 'Copied to clipboard!\ndiscord.gg/eWXxNYZd5p')
 	else
 		library:CoreNotification('Discord Invite', 'discord.gg/eWXxNYZd5p')
@@ -4382,7 +4390,7 @@ spawn(function()
 		
 		for i, v in pairs(game:GetDescendants()) do wait() end
 		library:Notify("Infinity Hub", "Game Supported!\nEnjoy the game features, Game: "..tostring(info.Name), "Normal")
-	elseif game.PlaceId == 9508108517 then
+	elseif game.PlaceId == 10277607801 then
 		
 		Apeirophobia_Scripts()
 		
