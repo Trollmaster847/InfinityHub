@@ -44,7 +44,8 @@ _G.InfinityHub_Data = {
 	
 	PresetColor = Color3.fromRGB(0, 255, 0),
 	CloseBind = Enum.KeyCode.LeftControl,
-	Position = {0.5, 0, 0.5, 0},
+	Position = nil,
+	
 	ShowNotifications = true,
 }
 
@@ -86,6 +87,7 @@ function RestoreUI()
 		_G.InfinityHub_Data.ShowNotifications = false
 	end
 end
+
 
 local HubColorValue = {RainbowColorValue = 0, HueSelectionPosition = 0}
 
@@ -220,9 +222,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 	local MainFrame = Instance.new("ImageLabel")
 	local Tabs = Instance.new("ImageLabel")
-
 	local TopBar = Instance.new("ImageLabel")
-	local Glow = Instance.new("ImageLabel")
 
 	local TabsContainer = Instance.new("ScrollingFrame")
 	local UIListLayout = Instance.new("UIListLayout")
@@ -230,6 +230,16 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	local LockMouseButton = Instance.new("TextButton")
 	local Title = Instance.new("TextLabel")
 	local TabsFolder = Instance.new("Folder")
+	local StorageFrame = Instance.new("Frame")
+	
+	local PlayerInfoFrame = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	
+	local PlayerImage = Instance.new("ImageLabel")
+	local UICorner2 = Instance.new("UICorner")
+	
+	local PlayerName = Instance.new("TextLabel")
+	local DisplayName = Instance.new("TextLabel")
 
 	_G.InfinityHub_Data.PresetColor = MainColor or Color3.fromRGB(0, 255, 0)
 	_G.InfinityHub_Data.CloseBind = CloseBind or Enum.KeyCode.LeftControl
@@ -262,7 +272,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	MainFrame.Parent = UI
 	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 	MainFrame.BackgroundTransparency = 1.000
-	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	MainFrame.Position = _G.InfinityHub_Data.Position or UDim2.new(0.5, 0, 0.5, 0)
 	MainFrame.Size = UDim2.new(0, 0, 0, 0)
 	MainFrame.Image = "rbxassetid://4641149554"
 	MainFrame.ImageColor3 = Color3.fromRGB(24, 24, 24)
@@ -287,12 +297,13 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	TabsContainer.Active = true
 	TabsContainer.BackgroundTransparency = 1.000
 	TabsContainer.Position = UDim2.new(0, 0, 0, 10)
-	TabsContainer.Size = UDim2.new(1, 0, 1, -20)
+	TabsContainer.Size = UDim2.new(1, 0, 0.832, -20)
 	TabsContainer.CanvasSize = UDim2.new(0, 0, 0, 314)
 	TabsContainer.ScrollBarThickness = 0
 
 	UIListLayout.Parent = TabsContainer
 	UIListLayout.Padding = UDim.new(0, 10)
+	
 	
 	for i, v in pairs(TabsContainer:GetChildren()) do
 		if UIListLayout.AbsoluteContentSize.Y > 325 then
@@ -304,7 +315,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 			TabsContainerScroll.BorderSizePixel = 0
 			
 			TabsContainerScroll.Position = UDim2.new(0, 0, 0, 10)
-			TabsContainerScroll.Size = UDim2.new(1, 0, 1, -20)
+			TabsContainerScroll.Size = UDim2.new(1, 0, 0.832, -20)
 			
 			TabsContainerScroll.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
 			TabsContainerScroll.ScrollBarThickness = 2
@@ -323,7 +334,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	TabsContainer.ChildRemoved:Connect(function()
 		pcall(function() TabsContainer.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 35) end)
 	end)
-
 	TabsContainer.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
 
 	TopBar.Name = "TopBar"
@@ -345,25 +355,18 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	Title.Size = UDim2.new(1, -46, 0, 16)
 	Title.ZIndex = 6
 	Title.Font = Enum.Font.GothamBold
-	Title.Text = Hub_Name
+	Title.Text = tostring(Hub_Name)
 	Title.TextColor3 = Color3.fromRGB(230, 230, 230)
 	Title.TextSize = 14.000
 	Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	Glow.Name = "Glow"
-	Glow.Parent = MainFrame
-	Glow.Visible = false
-	Glow.BackgroundTransparency = 1.000
-	Glow.Position = UDim2.new(0, -15, 0, -15)
-	Glow.Size = UDim2.new(1, 30, 1, 30)
-	Glow.ZIndex = 0
-	Glow.Image = "rbxassetid://5028857084"
-	Glow.ImageColor3 = MainColor
-	Glow.ScaleType = Enum.ScaleType.Slice
-	Glow.SliceCenter = Rect.new(24, 24, 276, 276)
-
 	TabsFolder.Name = "TabsFolder"
 	TabsFolder.Parent = MainFrame
+	
+	StorageFrame.Size = UDim2.new(0,0,0,0)
+	StorageFrame.Name = "StorageFrame"
+	StorageFrame.Visible = false
+	StorageFrame.Parent = MainFrame
 
 	LockMouseButton.Name = "LockMouseButton"
 
@@ -371,6 +374,65 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	LockMouseButton.Text = ""
 
 	LockMouseButton.Parent = PARENT
+	
+	PlayerInfoFrame.Name = "PlayerInfoFrame"
+	PlayerInfoFrame.Parent = Tabs
+	PlayerInfoFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+	PlayerInfoFrame.BorderSizePixel = 0
+	PlayerInfoFrame.Position = UDim2.new(0, 0, 0.852409661, 0)
+	PlayerInfoFrame.Size = UDim2.new(0, 111, 0, 48)
+	PlayerInfoFrame.ZIndex = 3
+	
+	UICorner.CornerRadius = UDim.new(0, 6)
+	UICorner.Parent = PlayerInfoFrame
+
+	PlayerImage.Name = "PlayerImage"
+	PlayerImage.Parent = PlayerInfoFrame
+	PlayerImage.BackgroundTransparency = 1
+	PlayerImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	PlayerImage.Position = UDim2.new(0.045, 0, 0.2, 0)
+	PlayerImage.Size = UDim2.new(0, 32, 0, 32)
+	PlayerImage.ZIndex = 3
+	
+	local ThumbnailType = Enum.ThumbnailType.HeadShot
+	local ThumbnailSize = Enum.ThumbnailSize.Size420x420
+	local content = game.Players:GetUserThumbnailAsync(game.Players.LocalPlayer.UserId, ThumbnailType, ThumbnailSize)
+	
+	PlayerImage.Image = content
+
+	UICorner2.CornerRadius = UDim.new(0, 100)
+	UICorner2.Parent = PlayerImage
+
+	PlayerName.Name = "PlayerName"
+	PlayerName.Parent = PlayerInfoFrame
+	PlayerName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	PlayerName.BackgroundTransparency = 1.000
+	PlayerName.Position = UDim2.new(0.38, 0, 0.263636261, 0)
+	PlayerName.Size = UDim2.new(0, 63, 0, 17)
+	PlayerName.ZIndex = 3
+	PlayerName.Font = Enum.Font.SourceSans
+	PlayerName.Text = "@"..tostring(game.Players.LocalPlayer.Name)
+	PlayerName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	PlayerName.TextScaled = true
+	PlayerName.TextSize = 12.000
+	PlayerName.TextWrapped = true
+	PlayerName.TextXAlignment = Enum.TextXAlignment.Left
+
+	DisplayName.Name = "DisplayName"
+	DisplayName.Parent = PlayerInfoFrame
+	DisplayName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DisplayName.BackgroundTransparency = 1.000
+	DisplayName.Position = UDim2.new(0.38, 0, 0.49090901, 0)
+	DisplayName.Size = UDim2.new(0, 45, 0, 17)
+	DisplayName.ZIndex = 3
+	DisplayName.Font = Enum.Font.SourceSans
+	DisplayName.Text = tostring(game.Players.LocalPlayer.DisplayName)
+	DisplayName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	DisplayName.TextScaled = true
+	DisplayName.TextSize = 12.000
+	DisplayName.TextTransparency = 0.650
+	DisplayName.TextWrapped = true
+	DisplayName.TextXAlignment = Enum.TextXAlignment.Left
 
 	MakeDraggable(MainFrame)
 	MainFrame:TweenSize(UDim2.new(0, 500, 0, 370), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 1.2, true)
@@ -378,7 +440,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	task.wait(0.6)
 	
 	Tabs.Visible = true
-	Glow.Visible = true
 	
 	local uitoggled = false
 	UserInputService.InputBegan:Connect(
@@ -406,10 +467,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 							if SelectedTab ~= nil then
 								if v.Name == tostring(SelectedTab) then
 									v.Visible = true
-								else
-									if v.Name == "HomeFrame" then 
-										v.Visible = true
-									end
 								end
 							else
 								if v.Name == "HomeFrame" then 
@@ -432,23 +489,32 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 	end
 
 	function library:SaveUISettings()
-		--pcall(function() _G.InfinityHub_Data.Position = MainFrame.Position end)
-		--pcall(function() Save_UI_Settings() end)
+		pcall(function() _G.InfinityHub_Data.Position = MainFrame.Position end)
+		task.wait()
+		pcall(function() Save_UI_Settings() end)
 	end
 
 	function library:DestroyUI()
-		--pcall(function() _G.InfinityHub_Data.Position = MainFrame.Position end)
+		pcall(function() _G.InfinityHub_Data.Position = MainFrame.Position end)
+		task.wait()
 		pcall(function() getgenv().HUB_LOADED = false end)
-		--pcall(function() Save_UI_Settings() end)
+		
+		pcall(function() Save_UI_Settings() end)
+		task.wait()
 		pcall(function() RestoreUI() end)
+		
 		PARENT:Destroy()
 	end
 	
-	function library:GetParent()
-		return PARENT
+	function library:GetStorage()
+		return StorageFrame
 	end
 	
 	function library:CoreNotification(Title, Msg, Duration, BtnTxt, callback)
+		if _G.InfinityHub_Data.ShowNotifications == false then
+			return
+		end
+		
 		game:GetService("StarterGui"):SetCore("SendNotification", {
 			Title = Title or Hub_Name.." | NOTIFICATION";
 			Text = Msg or tostring(nil);
@@ -498,7 +564,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 		Glow.ZIndex = 2
 		Glow.Parent = MainFrameNotify
 		Glow.Image = "rbxassetid://5028857084"
-		Glow.ImageColor3 = MainColor
+		Glow.ImageColor3 = _G.InfinityHub_Data.PresetColor
 		Glow.ScaleType = Enum.ScaleType.Slice
 		Glow.SliceCenter = Rect.new(24, 24, 276, 276)
 		
@@ -550,8 +616,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 		Decline.ImageColor3 = Color3.fromRGB(255, 255, 255)
 		Decline.ZIndex = 4
 
-		MakeDraggable(MainFrameNotify)
-		
+		MakeDraggable(MainFrameNotify)	
 		
 		callback = callback or function() end
 		
@@ -566,7 +631,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 		
 		local padding = 10
 		local TextService = game:GetService("TextService"):GetTextSize(Msg, 12, Enum.Font.Gotham, Vector2.new(math.huge, 16))
-
+		
 		MainFrameNotify.Position = library.lastNotification or UDim2.new(0, padding, 1, -(MainFrameNotify.AbsoluteSize.Y + padding))
 		MainFrameNotify.Size = UDim2.new(0, 0, 0, 60)
 		
@@ -634,7 +699,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 		end)
 	end
 
-
 	local Tabs = {}
 
 	function Tabs:CreatePage(TabName, AssetId, Priority)
@@ -666,7 +730,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 		local Title = Instance.new("TextLabel")
 		local Icon = Instance.new("ImageLabel")
 
-		TabBtn.Name = tostring(Priority)..TabName.."TabBtn"
+		TabBtn.Name = tostring(Priority).."_"..TabName.."_TabBtn"		
 		TabBtn.Parent = TabsContainer
 		TabBtn.BackgroundTransparency = 1.000
 		TabBtn.BorderSizePixel = 0
@@ -718,7 +782,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 		for i ,v in pairs(TabsContainer:GetDescendants()) do
 			if v.Parent:FindFirstChild("Title") and v.Parent:FindFirstChild("Icon") then
-				if v.Parent.Name == "1_TabBtn" then
+				if string.find(v.Parent.Name, "1") then
 
 					TweenService:Create(
 						v.Parent.Title,
@@ -826,6 +890,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 		end)
 
 		UpdateSize()
+		
 		TabFrame.ChildAdded:Connect(UpdateSize)
 		TabFrame.ChildRemoved:Connect(UpdateSize)
 
@@ -893,12 +958,131 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 			Container.ChildRemoved:Connect(UpdateSectionFrame)
 
 			local Elements = {}
+			
+			function Elements:CreateScriptInfoButton(PlaceId, Status)
+				local s, info = pcall(MPS.GetProductInfo,MPS,tonumber(PlaceId))
+				
+				local GameInfoBtn = Instance.new("TextButton")
+				local UICorner = Instance.new("UICorner")
 
+				local GameImage = Instance.new("ImageLabel")
+
+				local GameImageCorner = Instance.new("UICorner")
+				local GameTitleText = Instance.new("TextLabel")
+
+				local StatusFrame = Instance.new("Frame")
+
+				local UICorner_2 = Instance.new("UICorner")
+				local StatusText = Instance.new("TextLabel")
+
+				local StatusCircle = Instance.new("Frame")
+				local StatusCircleCorner = Instance.new("UICorner")
+
+				GameInfoBtn.Name = "GameInfoBtn"
+				GameInfoBtn.Parent = Container
+				GameInfoBtn.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+				GameInfoBtn.Size = UDim2.new(1, 0, 0, 48)
+				GameInfoBtn.ZIndex = 2
+				GameInfoBtn.Font = Enum.Font.SourceSans
+				GameInfoBtn.Text = ""
+				GameInfoBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+				GameInfoBtn.TextSize = 14.000
+
+				UICorner.CornerRadius = UDim.new(0, 5)
+				UICorner.Parent = GameInfoBtn
+
+				GameImage.Name = "GameImage"
+				GameImage.Parent = GameInfoBtn
+				GameImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				GameImage.Position = UDim2.new(0.0250000004, 0, 0.100000001, 0)
+				GameImage.Size = UDim2.new(0, 38, 0, 38)
+				GameImage.ZIndex = 2
+				GameImage.Image = "rbxassetid://"..tonumber(info.IconImageAssetId)
+
+				GameImageCorner.Name = "GameImageCorner"
+				GameImageCorner.Parent = GameImage
+
+				GameTitleText.Name = "GameTitleText"
+				GameTitleText.Parent = GameInfoBtn
+				GameTitleText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				GameTitleText.BackgroundTransparency = 1.000
+				GameTitleText.Position = UDim2.new(0.150000006, 0, 0.280000001, 0)
+				GameTitleText.Size = UDim2.new(0, 120, 0, 20)
+				GameTitleText.ZIndex = 2
+				GameTitleText.Font = Enum.Font.Gotham
+				GameTitleText.Text = tostring(info.Name)
+				GameTitleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+				GameTitleText.TextScaled = true
+				GameTitleText.TextSize = 12.000
+				GameTitleText.TextWrapped = true
+
+				StatusFrame.Name = "StatusFrame"
+				StatusFrame.Parent = GameInfoBtn
+				StatusFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+				StatusFrame.Position = UDim2.new(0.75, 0, 0.280000001, 0)
+				StatusFrame.Size = UDim2.new(0, 78, 0, 18)
+				StatusFrame.Visible = true
+				StatusFrame.ZIndex = 3
+
+				UICorner_2.Parent = StatusFrame
+
+				StatusText.Name = "StatusText"
+				StatusText.Parent = StatusFrame
+				StatusText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				StatusText.BackgroundTransparency = 1.000
+				StatusText.Position = UDim2.new(0.200000003, 0, 0, 0)
+				StatusText.Size = UDim2.new(0, 35, 0, 18)
+				StatusText.ZIndex = 3
+				StatusText.Font = Enum.Font.Gotham
+				StatusText.Text = "Status:"
+				StatusText.TextColor3 = Color3.fromRGB(255, 255, 255)
+				StatusText.TextSize = 15.000
+
+				StatusCircle.Name = "StatusCircle"
+				StatusCircle.Parent = StatusFrame
+				StatusCircle.BackgroundColor3 = Color3.fromRGB(85, 255, 0)
+				StatusCircle.Position = UDim2.new(0.779999971, 0, 0.180000007, 0)
+				StatusCircle.Size = UDim2.new(0, 12, 0, 12)
+				StatusCircle.ZIndex = 3
+
+				StatusCircleCorner.CornerRadius = UDim.new(0, 100)
+				StatusCircleCorner.Name = "StatusCircleCorner"
+				StatusCircleCorner.Parent = StatusCircle
+
+				GameInfoBtn.MouseButton1Click:Connect(function()
+					if Status == "Ok" then
+						library:Notify("NOTIFICATION", "You will be teleported to: "..tostring(info.Name).."\nAre you sure of this?", "fuction", function(arg)
+							if arg then
+								game:GetService("TeleportService"):Teleport(PlaceId)
+							end
+						end)
+
+					elseif Status == "Warning" then
+						library:Notify("NOTIFICATION", "Be careful, you will be teleported to a game that has just been updated\nAre you sure of this?", "fuction", function(arg)
+							if arg then
+								game:GetService("TeleportService"):Teleport(PlaceId)
+							end
+						end)
+
+					elseif Status == "Broken" then
+						library:Notify("NOTIFICATION", "Warning this game is recently updated the Scripts are Broken/Patched\nAre you sure of this?", "fuction", function(arg)
+							if arg then
+								game:GetService("TeleportService"):Teleport(PlaceId)
+							end
+						end)
+
+					elseif Status == "Offline" then
+						library:Notify("NOTIFICATION", "Script Offline due Server/API Issues or Maintenance", "Normal")
+					end
+				end)
+				
+				UpdateSize()
+				UpdateSectionFrame()
+			end
+			
 			function Elements:Colorpicker(ActionText, Present , callback)
 
 				local ColorPicker = Instance.new("ImageLabel")
-
-				local Glow2 = Instance.new("ImageLabel")
 				local Title = Instance.new("TextLabel")
 
 				local ColorPickerContainer = Instance.new("Frame")
@@ -961,18 +1145,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 				ColorPicker.ImageColor3 = Color3.fromRGB(24, 24, 24)
 				ColorPicker.ScaleType = Enum.ScaleType.Slice
 				ColorPicker.SliceCenter = Rect.new(2, 2, 298, 298)
-
-				Glow2.Name = "Glow"
-				Glow2.Parent = ColorPicker
-				Glow2.BackgroundTransparency = 1.000
-				Glow2.Position = UDim2.new(0, -15, 0, -15)
-				Glow2.Size = UDim2.new(1, 30, 1, 30)
-				Glow2.ZIndex = 2
-				Glow2.Image = "rbxassetid://5028857084"
-				Glow2.ImageColor3 = MainColor
-				Glow2.ScaleType = Enum.ScaleType.Slice
-				Glow2.SliceCenter = Rect.new(22, 22, 278, 278)
-
+				
 				Title.Name = "Title"
 				Title.Parent = ColorPicker
 				Title.BackgroundTransparency = 1.000
@@ -1262,7 +1435,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 						Close.Visible = false
 						
 						Title.Visible = false
-						Glow2.Visible = false
 						
 						FrameTonggled = true
 						Debounce = true
@@ -1285,7 +1457,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 						Close.Visible = true
 
 						Title.Visible = true
-						Glow2.Visible = true
 						
 						ColorPicker.Visible = true
 						FrameTonggled = false
@@ -1304,7 +1475,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 						Close.Visible = false
 
 						Title.Visible = false
-						Glow2.Visible = false
 						
 						FrameTonggled = true
 						Debounce = true
@@ -1327,7 +1497,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 						Close.Visible = true
 
 						Title.Visible = true
-						Glow2.Visible = true
 						
 						ColorPicker.Visible = true
 						FrameTonggled = false
@@ -1346,7 +1515,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 						Close.Visible = false
 
 						Title.Visible = false
-						Glow2.Visible = false
 						
 						FrameTonggled = true
 						Debounce = true
@@ -1369,7 +1537,6 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 						Close.Visible = true
 
 						Title.Visible = true
-						Glow2.Visible = true
 						
 						ColorPicker.Visible = true
 						FrameTonggled = false
@@ -1502,10 +1669,8 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 					BoxColor.BackgroundColor3 = resultColour
 
-					Glow.ImageColor3 = resultColour
-					Glow2.ImageColor3 = resultColour
-
 					_G.InfinityHub_Data.PresetColor = resultColour
+					MainColor = resultColour
 
 					R.TextColorValue.Text = colourR - darknessR
 					G.TextColorValue.Text = colourG - darknessG
@@ -1524,14 +1689,12 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 								BoxColor.BackgroundColor3 = Color3.fromHSV(RainbowColorValue, 1, 1)
 
-								Glow.ImageColor3 = Color3.fromHSV(RainbowColorValue, 1, 1)
-								Glow2.ImageColor3 = Color3.fromHSV(RainbowColorValue, 1, 1)
-
 								_G.InfinityHub_Data.PresetColor = Color3.fromHSV(RainbowColorValue, 1, 1)
-
+								MainColor = Color3.fromHSV(RainbowColorValue, 1, 1)
+								
 								Cursor.Position = UDim2.new(0, 0, 0, 0)
 								Slider.Position = UDim2.new(0, HueSelectionPosition, 0, 0)
-
+								
 								wait()
 							end
 						end
@@ -1809,82 +1972,70 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 				return TogFunction
 			end
 
-			function Elements:CreateSlider(ActionText, MinValue, MaxValue, callback)
+			function Elements:CreateSlider(ActionText, default, min, max, callback)
+				
+				local Slider = Instance.new("ImageButton")
 
-				local Slider = Instance.new("Frame")
 				local Title = Instance.new("TextLabel")
-				--local TextBox = Instance.new("TextBox")
-				local TextBox = Instance.new("TextLabel")
+				local TextBox = Instance.new("TextBox")
 
-				local Slider_2 = Instance.new("TextLabel")
-				local Bar = Instance.new("ImageButton")
+				local SliderText = Instance.new("TextLabel")
+				local Bar = Instance.new("ImageLabel")
+
 				local Fill = Instance.new("ImageLabel")
-
-				local Circle = Instance.new("ImageButton")
-				local UICorner = Instance.new("UICorner")
-
-				MinValue = MinValue or 0
-				MaxValue = MaxValue or 100
-
-				callback = callback or function() end
-				ActionText = ActionText or ""
-
-				local moveconnection
-				local releaseconnection
-
-				local mouse = game.Players.LocalPlayer:GetMouse()
-				local Value;
+				local Circle = Instance.new("ImageLabel")
 
 				Slider.Name = "Slider"
 				Slider.Parent = Container
-				Slider.Active = true
-				Slider.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+				Slider.BackgroundTransparency = 1
 				Slider.BorderSizePixel = 0
 				Slider.Position = UDim2.new(0.292817682, 0, 0.299145311, 0)
-				Slider.Selectable = true
 				Slider.Size = UDim2.new(1, 0, 0, 50)
 				Slider.ZIndex = 2
+				Slider.Image = "rbxassetid://5028857472"
+				Slider.ImageColor3 = Color3.fromRGB(14, 14, 14)
+				Slider.ScaleType = Enum.ScaleType.Slice
+				Slider.SliceCenter = Rect.new(2, 2, 298, 298)
 
 				Title.Name = "Title"
-				Title.Parent = Slider
-				Title.BackgroundTransparency = 1.000
+				Title.BackgroundTransparency = 1
 				Title.Position = UDim2.new(0, 10, 0, 6)
 				Title.Size = UDim2.new(0.5, 0, 0, 16)
 				Title.ZIndex = 3
 				Title.Font = Enum.Font.Gotham
 				Title.Text = ActionText
+				Title.Parent = Slider
 				Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-				Title.TextSize = 12.000
-				Title.TextTransparency = 0.100
+				Title.TextSize = 12
+				Title.TextTransparency = 0.10000000149012
 				Title.TextXAlignment = Enum.TextXAlignment.Left
 
-				TextBox.Parent = Slider
-				TextBox.BackgroundTransparency = 1.000
+				TextBox.Name = "TextBox"
+				TextBox.BackgroundTransparency = 1
 				TextBox.BorderSizePixel = 0
 				TextBox.Position = UDim2.new(1, -30, 0, 6)
 				TextBox.Size = UDim2.new(0, 20, 0, 16)
 				TextBox.ZIndex = 3
+				TextBox.Parent = Slider
 				TextBox.Font = Enum.Font.GothamSemibold
-				TextBox.Text = tostring(MinValue)
+				TextBox.Text = default or min
 				TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-				TextBox.TextSize = 12.000
+				TextBox.TextSize = 12
 				TextBox.TextXAlignment = Enum.TextXAlignment.Right
 
-				Slider_2.Name = "Slider"
-				Slider_2.Parent = Slider
-				Slider_2.BackgroundTransparency = 1.000
-				Slider_2.Position = UDim2.new(0, 10, 0, 28)
-				Slider_2.Size = UDim2.new(1, -20, 0, 16)
-				Slider_2.ZIndex = 3
-				Slider_2.Text = ""
+				SliderText.Name = "Slider"
+				SliderText.Parent = Slider
+				SliderText.BackgroundTransparency = 1
+				SliderText.Position = UDim2.new(0, 10, 0, 28)
+				SliderText.Size = UDim2.new(1, -20, 0, 16)
+				SliderText.ZIndex = 3
+				SliderText.Text = ""
 
 				Bar.Name = "Bar"
-				Bar.Parent = Slider_2
-				Bar.Active = false
+				Bar.Parent = SliderText
 				Bar.AnchorPoint = Vector2.new(0, 0.5)
-				Bar.BackgroundTransparency = 1.000
+				Bar.BackgroundTransparency = 1
 				Bar.Position = UDim2.new(0, 0, 0.5, 0)
-				Bar.Selectable = false
 				Bar.Size = UDim2.new(1, 0, 0, 4)
 				Bar.ZIndex = 3
 				Bar.Image = "rbxassetid://5028857472"
@@ -1894,57 +2045,101 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 				Fill.Name = "Fill"
 				Fill.Parent = Bar
-				Fill.BackgroundTransparency = 1.000
-				Fill.Size = UDim2.new(0, 0, 0, 4)
+				Fill.BackgroundTransparency = 1
+				Fill.Size = UDim2.new(0.8, 0, 1, 0)
 				Fill.ZIndex = 3
 				Fill.Image = "rbxassetid://5028857472"
+				Fill.ImageColor3 = Color3.fromRGB(255, 255, 255)
 				Fill.ScaleType = Enum.ScaleType.Slice
 				Fill.SliceCenter = Rect.new(2, 2, 298, 298)
 
 				Circle.Name = "Circle"
 				Circle.Parent = Fill
 				Circle.AnchorPoint = Vector2.new(0.5, 0.5)
-				Circle.BackgroundTransparency = 1.000
+				Circle.BackgroundTransparency = 1
+				Circle.ImageTransparency = 1.000
+				Circle.ImageColor3 = Color3.fromRGB(255, 255, 255)
 				Circle.Position = UDim2.new(1, 0, 0.5, 0)
 				Circle.Size = UDim2.new(0, 10, 0, 10)
 				Circle.ZIndex = 3
 				Circle.Image = "rbxassetid://4608020054"
 
-				UICorner.CornerRadius = UDim.new(0, 5)
-				UICorner.Parent = Slider
+				local Mouse = game.Players.LocalPlayer:GetMouse()
+				
+				local allowed = {[""] = true,["-"] = true}
+				local value = default or min
 
-				Circle.MouseButton1Down:Connect(function()
-					Value = math.floor((((tonumber(MaxValue) - tonumber(MinValue)) / 328) * Fill.AbsoluteSize.X) + tonumber(MinValue)) or 0
+				local dragging = false
+				local CanDrag = false
+				
+				local function updateSlider(slider, title, value, min, max, lvalue)
+					if title then
+						Title.Text = title
+					end
 
-					pcall(function()
-						callback(Value)
-					end)
+					local percent = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 
-					Fill.Size = UDim2.new(0, math.clamp(mouse.X - Fill.AbsolutePosition.X, 0, 395), 0, 4)
+					if value then
+						percent = (value - min) / (max - min)
+					end
 
-					moveconnection = mouse.Move:Connect(function()
-						TextBox.Text = Value
-						Value = math.floor((((tonumber(MaxValue) - tonumber(MinValue)) / 328) * Fill.AbsoluteSize.X) + tonumber(MinValue))
+					percent = math.clamp(percent, 0, 1)
+					value = value or math.floor(min + (max - min) * percent)
 
-						pcall(function()
-							callback(Value)
-						end)
+					TextBox.Text = value
+					TweenService:Create(Fill, TweenInfo.new(0.1), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
 
-						Fill.Size = UDim2.new(0, math.clamp(mouse.X - Fill.AbsolutePosition.X, 0, 328), 0, 4)
-					end)
+					return value
+				end
 
-					releaseconnection = UserInputService.InputEnded:Connect(function(Mouse)
-						if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-							Value = math.floor((((tonumber(MaxValue) - tonumber(MinValue)) / 328) * Fill.AbsoluteSize.X) + tonumber(MinValue))
-							pcall(function()
-								callback(Value)
-							end)
+				updateSlider(Slider, nil, value, min, max)
 
-							Fill.Size = UDim2.new(0, math.clamp(mouse.X - Fill.AbsolutePosition.X, 0, 328), 0, 4)
-							moveconnection:Disconnect()
-							releaseconnection:Disconnect()
-						end
-					end)
+				Slider.MouseButton1Down:Connect(function(input)
+					if dragging then
+						dragging = false
+					else
+						dragging = true
+					end
+
+					while dragging and CanDrag do
+						TweenService:Create(Circle, TweenInfo.new(0.1), {ImageTransparency = 0}):Play()
+
+						value = updateSlider(Slider, nil, nil, min, max, value)
+						pcall(callback, value)
+
+						RS.RenderStepped:Wait()
+					end
+
+					wait(0.5)
+					TweenService:Create(Circle, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
+				end)
+
+				Slider.MouseLeave:Connect(function()
+					dragging = false
+					CanDrag = false
+				end)
+
+				Slider.MouseEnter:Connect(function()
+					CanDrag = true
+				end)
+
+				TextBox.FocusLost:Connect(function()
+					if not tonumber(TextBox.Text) then
+						value = updateSlider(Slider, nil, default or min, min, max)
+						pcall(callback, value)
+					end
+				end)
+
+				TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+					local text = TextBox.Text
+
+					if not allowed[text] and not tonumber(text) then
+						TextBox.Text = text:sub(1, #text - 1)
+
+					elseif not allowed[text] then	
+						value = updateSlider(Slider, nil, tonumber(text) or value, min, max)
+						pcall(callback, value)
+					end
 				end)
 
 				UpdateSize()
@@ -2462,7 +2657,7 @@ function library:CreateWindow(Hub_Name, MainColor, CloseBind)
 
 				UpdateSize()
 				UpdateSectionFrame()
-			end	
+			end
 			return Elements
 		end	
 		return Sections
